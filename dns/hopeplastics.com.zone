@@ -1,0 +1,27 @@
+; hopeplastics.com — records to carry over to Cloudflare DNS
+; Captured from the live GoDaddy zone on 2026-10-10 (dns-over-https queries).
+; Email is Microsoft 365; keep every record below except the web ones at the end,
+; which move to Cloudflare Pages.
+$ORIGIN hopeplastics.com.
+$TTL 3600
+
+; --- Microsoft 365 mail and Teams ---
+@                       IN MX    0 hopeplastics-com.mail.protection.outlook.com.
+@                       IN TXT   "v=spf1 include:secureserver.net -all"
+@                       IN TXT   "NETORGFT12687456.onmicrosoft.com"
+autodiscover            IN CNAME autodiscover.outlook.com.
+lyncdiscover            IN CNAME webdir.online.lync.com.
+sip                     IN CNAME sipdir.online.lync.com.
+msoid                   IN CNAME clientconfig.microsoftonline-p.net.
+_sip._tls               IN SRV   100 1 443 sipdir.online.lync.com.
+_sipfederationtls._tcp  IN SRV   100 1 5061 sipfed.online.lync.com.
+
+; --- GoDaddy leftovers (harmless to keep; remove once confirmed unused) ---
+email                   IN CNAME email.secureserver.net.
+webmail                 IN CNAME webmail.secureserver.net.
+ftp                     IN A     45.40.146.94
+_domainconnect          IN CNAME _domainconnect.gd.domaincontrol.com.
+
+; --- Web: Cloudflare Pages (replaces the old A 192.124.249.30 Sucuri record) ---
+@                       IN CNAME hopeplastics-new.pages.dev.
+www                     IN CNAME hopeplastics-new.pages.dev.
